@@ -80,7 +80,7 @@ type ClashConf struct {
 		Nameserver        []string `yaml:"nameserver"`
 	} `yaml:"dns"`
 
-	// Meta
+	// Mihomo
 	IPTables struct {
 		Enable bool `yaml:"enable"`
 	} `yaml:"iptables"`
@@ -143,7 +143,7 @@ func CheckConfig(c string) (*ClashConf, error) {
 	}
 
 	if cc.IPTables.Enable {
-		return nil, fmt.Errorf("[config] meta kernel must turn off iptables(iptables.enable)")
+		return nil, fmt.Errorf("[config] Mihomo kernel must turn off iptables(iptables.enable)")
 	}
 
 	return &cc, nil
