@@ -14,7 +14,7 @@ vars:
   META_VERSION:
     sh: |
       curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-        https://api.github.com/repos/MetaCubeX/Clash.Meta/releases/latest | jq -r '.name'
+        https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | jq -r '.name'
   META_DASHBOARD_VERSION:
     sh: |
       curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
