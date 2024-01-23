@@ -7,10 +7,6 @@ vars:
     sh: git rev-parse HEAD
   BUILD_DATE:
     sh: date '+%F %T'
-  PREMIUM_VERSION:
-    sh: |
-      curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-        https://api.github.com/repos/Dreamacro/clash/releases/tags/premium | jq -r '.name'
   META_VERSION:
     sh: |
       curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
@@ -81,21 +77,6 @@ tasks:
     status:
       - test -d static/tracing
 
-  build-premium-dashboard:
-    desc: Build Clash Premium Dashboard
-    cmds:
-      - git clone https://github.com/haishanh/yacd.git build/yacd
-      - defer: rm -rf build/yacd
-      - git clone https://github.com/Dreamacro/clash-dashboard.git build/official
-      - defer: rm -rf build/official
-      - (cd build/yacd && pnpm install && pnpm build)
-      - (cd build/official && pnpm install && pnpm build)
-      - cp -r build/yacd/public static/yacd
-      - cp -r build/official/dist static/official
-    status:
-      - test -d static/yacd
-      - test -d static/official
-
   build-meta-dashboard:
     desc: Build Clash Meta Dashboard
     cmds:
@@ -110,21 +91,6 @@ tasks:
     status:
       - test -d static/yacd
       - test -d static/official
-
-  download-clash-premium:
-    desc: Download Clash Premium
-    vars:
-      CLASH_PREMIUM_URL:
-        sh: |
-          curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-            https://api.github.com/repos/Dreamacro/clash/releases/tags/premium | \
-            jq -r '.assets[].browser_download_url | select (. | test("clash-{{.PLATFORM}}-\\d{4}.*gz"))'
-    cmds:
-      - curl -sSL {{.CLASH_PREMIUM_URL}} > build/clash-{{.PLATFORM}}.gz
-      - gzip -d build/clash-{{.PLATFORM}}.gz
-      - chmod +x build/clash-{{.PLATFORM}}
-    status:
-      - test -f build/clash-{{.PLATFORM}}
 
   download-clash-meta:
     desc: Download Clash Meta
@@ -141,44 +107,12 @@ tasks:
     status:
       - test -f build/clash-meta-{{.PLATFORM}}
 
-  copy-clash-premium:
-    desc: Copy Clash Premium To Embed FS
-    cmds:
-      - task: download-clash-premium
-        vars: { PLATFORM: "{{.PLATFORM}}" }
-      - cp -f build/clash-{{.PLATFORM}} static/xclash
-
   copy-clash-meta:
     desc: Copy Clash Meta To Embed FS
     cmds:
       - task: download-clash-meta
         vars: { PLATFORM: "{{.PLATFORM}}" }
       - cp -f build/clash-meta-{{.PLATFORM}} static/xclash
-
-  build-tpclash-premium:
-    desc: Build TPClash With Clash Premium
-    label: build-premium-{{.PLATFORM}}
-    cmds:
-      - task: mkdir
-      - task: download-ruleset
-      - task: download-mmdb
-      - task: copy-tracing
-      - task: build-premium-dashboard
-      - task: download-clash-premium
-        vars: { PLATFORM: "{{.PLATFORM}}" }
-      - task: copy-clash-premium
-        vars: { PLATFORM: "{{.PLATFORM}}" }
-      - |
-        GOOS={{.GOOS}} GOARCH={{.GOARCH}} GOARM={{.GOARM}} GOAMD64={{.GOAMD64}} GOMIPS={{.GOMIPS}} \
-        go build -trimpath -o build/tpclash-premium-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}} \
-          -ldflags "{{if not .DEBUG}}-w -s{{end}} \
-          -X 'main.build={{.BUILD_DATE}}' \
-          -X 'main.commit={{.COMMIT_SHA}}' \
-          -X 'main.version={{.VERSION}}' \
-          -X 'main.clash={{.PREMIUM_VERSION}}' \
-          -X 'main.branch=premium' \
-          -X 'main.binName=tpclash-premium-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}'" \
-          {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
 
   build-tpclash-meta:
     desc: Build TPClash With Clash Meta
@@ -205,121 +139,6 @@ tasks:
           {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
 
 
-  linux-386-premium:
-    desc: Build TPClash With Clash Premium(linux/386)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-386,
-          GOOS: linux,
-          GOARCH: 386
-        }
-  linux-amd64-premium:
-    desc: Build TPClash With Clash Premium(linux/amd64)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-amd64,
-          GOOS: linux,
-          GOARCH: amd64
-        }
-  linux-amd64-v3-premium:
-    desc: Build TPClash With Clash Premium(linux/amd64-v3)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-amd64-v3,
-          GOOS: linux,
-          GOARCH: amd64,
-          GOAMD64: v3
-        }
-  linux-arm64-premium:
-    desc: Build TPClash With Clash Premium(linux/arm64)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-arm64,
-          GOOS: linux,
-          GOARCH: arm64
-        }
-  linux-armv5-premium:
-    desc: Build TPClash With Clash Premium(linux/armv5)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-armv5,
-          GOOS: linux,
-          GOARCH: arm,
-          GOARM: 5
-        }
-  linux-armv6-premium:
-    desc: Build TPClash With Clash Premium(linux/armv6)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-armv6,
-          GOOS: linux,
-          GOARCH: arm,
-          GOARM: 6
-        }
-  linux-armv7-premium:
-    desc: Build TPClash With Clash Premium(linux/armv7)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-armv7,
-          GOOS: linux,
-          GOARCH: arm,
-          GOARM: 7
-        }
-  linux-mips-hardfloat-premium:
-    desc: Build TPClash With Clash Premium(linux/mips-hardfloat)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-mips-hardfloat,
-          GOOS: linux,
-          GOARCH: mips,
-          GOMIPS: hardfloat
-        }
-  linux-mipsle-softfloat-premium:
-    desc: Build TPClash With Clash Premium(linux/mipsle-softfloat)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-mipsle-softfloat,
-          GOOS: linux,
-          GOARCH: mipsle,
-          GOMIPS: softfloat
-        }
-  linux-mipsle-hardfloat-premium:
-    desc: Build TPClash With Clash Premium(linux/mipsle-hardfloat)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-mipsle-hardfloat,
-          GOOS: linux,
-          GOARCH: mipsle,
-          GOMIPS: hardfloat
-        }
-  linux-mips64-premium:
-    desc: Build TPClash With Clash Premium(linux/mips64)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-mips64,
-          GOOS: linux,
-          GOARCH: mips64
-        }
-  linux-mips64le-premium:
-    desc: Build TPClash With Clash Premium(linux/mips64le)
-    cmds:
-      - task: build-tpclash-premium
-        vars: {
-          PLATFORM: linux-mips64le,
-          GOOS: linux,
-          GOARCH: mips64le
-        }
 
   linux-386-meta:
     desc: Build TPClash With Clash Meta(linux/386)
@@ -440,10 +259,6 @@ tasks:
   default:
     cmds:
       - task: clean
-      - task: linux-386-premium
-      - task: linux-amd64-premium
-      - task: linux-amd64-v3-premium
-      - task: linux-arm64-premium
       - rm -rf static/yacd static/official
       - task: linux-386-meta
       - task: linux-amd64-meta
