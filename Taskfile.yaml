@@ -98,8 +98,8 @@ tasks:
       CLASH_META_URL:
         sh: |
           curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-            https://api.github.com/repos/MetaCubeX/Clash.Meta/releases/latest | \
-            jq -r '.assets[].browser_download_url | select (. | test("clash.meta-{{.PLATFORM}}-v\\d+.*gz"))'
+            https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | \
+            jq -r '.assets[].browser_download_url | select (. | test("mihomo-{{.PLATFORM}}-v\\d+.*gz"))'
     cmds:
       - curl -sSL {{.CLASH_META_URL}} > build/clash-meta-{{.PLATFORM}}.gz
       - gzip -d build/clash-meta-{{.PLATFORM}}.gz
