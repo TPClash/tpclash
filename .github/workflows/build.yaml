@@ -56,10 +56,13 @@ jobs:
       run: |
         export TZ='Asia/Shanghai'
         echo "date=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
-    - name: Upload Artifact
-      id: upload
+    - name: Zip Artifact
+      id: zip
       shell: bash
       run: |
         tar -zcvf tpclash-${{ steps.timestamp.outputs.date }}.tar.gz build
-        download_url=$(curl --upload-file tpclash-${{ steps.timestamp.outputs.date }}.tar.gz https://transfer.sh/tpclash-${{ steps.timestamp.outputs.date }}.tar.gz)
-        echo "download_url=${download_url}" >> $GITHUB_OUTPUT
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: tpclash-${{ steps.timestamp.outputs.date }}.tar.gz
+        path: tpclash-${{ steps.timestamp.outputs.date }}.tar.gz
