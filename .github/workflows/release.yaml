@@ -69,6 +69,9 @@ jobs:
       if: steps.build.outputs.status == 'success'
       run: |
           echo "${{ steps.extract_tag.outputs.tag_name }}" >> release.txt
+          echo "" >> release.txt
+          echo "${{ secrets.RELEASE_INFO }}" >> release.txt
+          echo "" >> release.txt
           echo "Build time: ${{ steps.timestamp.outputs.date }}" >> release.txt
           echo "Telegram: https://t.me/tpclash" >> release.txt
           touch release.txt
