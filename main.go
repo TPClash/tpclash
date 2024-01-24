@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"time"
 
-	_ "github.com/mritd/logrus"
+	_ "github.com/QingNetwork/logrus"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

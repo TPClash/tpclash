@@ -10,7 +10,7 @@ require (
 	github.com/google/nftables v0.1.0
 	github.com/hashicorp/go-version v1.6.0
 	github.com/lorenzosaino/go-sysctl v0.3.1
-	github.com/mritd/logrus v0.0.0-20230606034929-eeeec5876e4d
+	github.com/QingNetwork/logrus v0.1.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/crypto v0.18.0
