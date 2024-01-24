@@ -1,6 +1,6 @@
-# Transparent proxy tool for Clash
+# TPClash
 
-> 这是一个用于 Clash 的透明代理辅助工具, 由于众所周知周知的原因(**手笨**)而创建的.
+TPClash(Transparent proxy tool for Clash)，是一个用于 Clash 的透明代理辅助工具, 由于众所周知的原因~~(**手笨**)~~而创建的.
 
 ## 一、TPClash 是什么
 
