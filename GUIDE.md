@@ -99,6 +99,10 @@ root@tpclash ~ # ❯❯❯ tpclash upgrade v0.1.10
 
 **升级前请确保关闭了 tpclash 服务, 升级时默认使用 `https://mirror.ghproxy.com` 进行加速, 如果不想使用可以通过 `--with-ghproxy=false` 选项关闭.**
 
+### 1.7、网页控制面板
+
+TPClash 自带与内核相适配的网页控制面板，您只需要访问 `IP:9090/ui` 后，再将 Clash 后端地址填入 （默认提供的 `example.yaml` 设置模板的 RESTful API 地址是 `IP:9090` ） 即可访问。
+
 ## 三、TPClash 配置
 
 默认情况下 TPClash 会读取 `/etc/clash.yaml` 配置文件启动 Clash; **TPClash 首先会读取该文件并进行模版解析, 解析成功后 TPClash 会将其写入到 Home 目录的 `xclash.yaml` 中
