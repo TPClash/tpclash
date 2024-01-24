@@ -93,5 +93,5 @@ var upgradeCmd = &cobra.Command{
 }
 
 func init() {
-	upgradeCmd.PersistentFlags().BoolVar(&conf.UpgradeWithGhProxy, "with-ghproxy", true, "use ghproxy.com to download upgrade files")
+	upgradeCmd.PersistentFlags().BoolVar(&conf.UpgradeWithGhProxy, "with-ghproxy", true, "use mirror.ghproxy.com to download upgrade files")
 }

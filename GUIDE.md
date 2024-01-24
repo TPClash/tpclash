@@ -95,7 +95,7 @@ root@tpclash ~ # ❯❯❯ tpclash upgrade
 root@tpclash ~ # ❯❯❯ tpclash upgrade v0.1.10
 ```
 
-**升级前请确保关闭了 tpclash 服务, 升级时默认使用 `https://ghproxy.com` 进行加速, 如果不想使用可以通过 `--with-ghproxy=false` 选项关闭.**
+**升级前请确保关闭了 tpclash 服务, 升级时默认使用 `https://mirror.ghproxy.com` 进行加速, 如果不想使用可以通过 `--with-ghproxy=false` 选项关闭.**
 
 ## 三、TPClash 配置
 

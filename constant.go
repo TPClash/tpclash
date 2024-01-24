@@ -148,7 +148,7 @@ const uninstalledMessage = logo + `  👌 TPClash 已卸载, 如有任何问题�
 const (
 	githubLatestApi   = "https://api.github.com/repos/QingNetwork/tpclash/releases/latest"
 	githubUpgradeAddr = "https://github.com/QingNetwork/tpclash/releases/download/v%s/%s"
-	ghProxyAddr       = "https://ghproxy.com/"
+	ghProxyAddr       = "https://mirror.ghproxy.com/"
 )
 
 const upgradedMessage = logo + `  👌 TPClash 已升级完成, 请重新启动以应用更改
