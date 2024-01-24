@@ -1,10 +1,10 @@
 # Transparent proxy tool for Clash
 
-> 这是一个用于 Clash Premium 的透明代理辅助工具, 由于众所周知周知的原因(**手笨**)而创建的.
+> 这是一个用于 Clash 的透明代理辅助工具, 由于众所周知周知的原因(**手笨**)而创建的.
 
 ## 一、TPClash 是什么
 
-TPClash 可以自动安装 Clash Premium/Meta, 并自动配置基于 Tun 的透明代理.
+TPClash 可以自动安装 ~~Clash Premium~~（已抛弃）/~~Meta~~(改名为 Mihomo), 并自动配置基于 Tun 的透明代理.
 
 **TPClash 的透明代理规则、日志配置、Dashboard(UI) 配置等全部从标准的 Clash 配置文件内读取, 并完成自适应; TPClash 暂时不会创建自己的自定义
 配置文件(减轻使用负担).**
@@ -59,6 +59,6 @@ TPClash 默认释放的文件包含了 [Loyalsoldier/clash-rules](https://github
 **TPClash 同时也释放了 [Hackl0us/GeoIP2-CN](https://github.com/Hackl0us/GeoIP2-CN) 项目的 Country.mmdb 文件, 该 GeoIP 数据库
 仅包含中国大陆地区 IP, 所以如果使用 `GEOIP,US,PROXY` 等其他国家规则会失败.**
 
-## 六、官方讨论群
+## 六、复活版TPClash讨论群
 
 Telegram: [https://t.me/tpclash](https://t.me/tpclash)
