@@ -140,13 +140,14 @@ const uninstallMessage = `
 `
 
 const uninstalledMessage = logo + `  👌 TPClash 已卸载, 如有任何问题请开启 issue 或从 Telegram 讨论组反馈
-     ● 官方仓库: https://github.com/mritd/tpclash
-     ● Telegram: https://t.me/tpclash
+     ● 原作者：mritd
+     ● 复活版TPClash仓库: https://github.com/QingNetwork/tpclash
+     ● 复活版TPClashTelegram: https://t.me/tpclash
 `
 
 const (
-	githubLatestApi   = "https://api.github.com/repos/mritd/tpclash/releases/latest"
-	githubUpgradeAddr = "https://github.com/mritd/tpclash/releases/download/v%s/%s"
+	githubLatestApi   = "https://api.github.com/repos/QingNetwork/tpclash/releases/latest"
+	githubUpgradeAddr = "https://github.com/QingNetwork/tpclash/releases/download/v%s/%s"
 	ghProxyAddr       = "https://ghproxy.com/"
 )
 

@@ -69,14 +69,14 @@ systemd:
         TimeoutStartSec=0
         ExecStartPre=-/usr/bin/docker stop tpclash
         ExecStartPre=-/usr/bin/docker rm tpclash
-        ExecStartPre=/usr/bin/docker pull mritd/tpclash
+        ExecStartPre=/usr/bin/docker pull QingNetwork/tpclash
         ExecStart=/usr/bin/docker run --tty \
                                   --privileged \
                                   --network host \
                                   --name tpclash \
                                   -v /data:/data \
                                   -v /run:/run \
-                                    mritd/tpclash tpclash \
+                                    QingNetwork/tpclash tpclash \
                                       --config https://example.com/clash.yaml
 
         [Install]
