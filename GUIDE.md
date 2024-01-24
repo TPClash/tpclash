@@ -226,7 +226,7 @@ TPClash 将会自动完成解密并加载:**
 - `{{IfName}}`: 自动解析为当前主机的主网卡
 - `{{DefaultDNS}}`: 自动获取当前主机默认的上游 DNS
 
-模版函数可能随后续更新继续添加, 使用方法请参考项目内的 [example.yaml](https://github.com/mritd/tpclash/blob/master/example.yaml) 配置.
+模版函数可能随后续更新继续添加, 使用方法请参考项目内的 [example.yaml](https://github.com/TPClash/tpclash/blob/master/example.yaml) 配置.
 
 ### 3.4、Premium Tracing
 
