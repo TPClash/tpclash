@@ -8,9 +8,7 @@ on:
         required: true
         type: choice
         options:
-          - build
-  issue_comment:
-    types: [created]
+          - buildd
 
 env:
   FORCE_COLOR: 1

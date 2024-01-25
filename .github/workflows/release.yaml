@@ -9,8 +9,6 @@ on:
         type: choice
         options:
           - release
-  issue_comment:
-    types: [created]
 
 env:
   FORCE_COLOR: 1
