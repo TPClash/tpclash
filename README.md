@@ -1,6 +1,11 @@
-# TPClash
+<div align="center">
+<img src="docs/Logo.png" width=300px>
+
+<h1>TPClash</h1>
 
 TPClash(Transparent proxy tool for Clash)，是一个用于 Clash 的透明代理辅助工具, 由于众所周知的原因~~手笨~~而创建的.
+
+</div>
 
 ## 一、TPClash 是什么
 
