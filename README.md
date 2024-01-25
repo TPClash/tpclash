@@ -64,9 +64,11 @@ TPClash 默认释放的文件包含了 [Loyalsoldier/clash-rules](https://github
 **TPClash 同时也释放了 [Hackl0us/GeoIP2-CN](https://github.com/Hackl0us/GeoIP2-CN) 项目的 Country.mmdb 文件, 该 GeoIP 数据库
 仅包含中国大陆地区 IP, 所以如果使用 `GEOIP,US,PROXY` 等其他国家规则会失败.**
 
-## 六、复活版TPClash讨论群
+## 六、复活版TPClash频道&讨论群
 
-Telegram: [https://t.me/tpclash](https://t.me/tpclash)
+Telegram 频道: [https://t.me/tpclash](https://t.me/tpclash)
+
+Telegram 交流群：https://t.me/+IXKJy7_SiM5mN2Q1
 
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/QingNetwork/tpclash.svg?variant=adaptive)](https://starchart.cc/QingNetwork/tpclash)
