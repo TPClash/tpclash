@@ -1,5 +1,5 @@
 <div align="center">
-<img src="docs/Logo.png" width=300px>
+<img src="docs/Logo.png" width=200px>
 
 <h1>TPClash</h1>
 
