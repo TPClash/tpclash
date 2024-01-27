@@ -133,7 +133,7 @@ tasks:
           -X 'main.build={{.BUILD_DATE}}' \
           -X 'main.commit={{.COMMIT_SHA}}' \
           -X 'main.version={{.VERSION}}' \
-          -X 'main.clash=Mihomo {{.Mihomo_VERSION}}' \
+          -X 'main.clash=Mihomo {{.MIHOMO_VERSION}}' \
           -X 'main.branch=mihomo' \
           -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}'" \
           {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
