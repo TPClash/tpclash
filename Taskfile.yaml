@@ -257,7 +257,10 @@ tasks:
         }
 
   default:
+    env:
+      CGO_ENABLED: 0
     cmds:
+      - go env CGO_ENABLED
       - task: clean
       - rm -rf static/yacd static/official
       - task: linux-386-mihomo
