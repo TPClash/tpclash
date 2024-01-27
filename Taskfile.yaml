@@ -128,14 +128,14 @@ tasks:
         vars: { PLATFORM: "{{.PLATFORM}}" }
       - |
         GOOS={{.GOOS}} GOARCH={{.GOARCH}} GOARM={{.GOARM}} GOAMD64={{.GOAMD64}} GOMIPS={{.GOMIPS}} \
-        go build -trimpath -o build/tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}} \
+        go build -trimpath -o build/tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-v{{.GOARM}}{{end}} \
           -ldflags "{{if not .DEBUG}}-w -s{{end}} \
           -X 'main.build={{.BUILD_DATE}}' \
           -X 'main.commit={{.COMMIT_SHA}}' \
           -X 'main.version={{.VERSION}}' \
           -X 'main.clash=Mihomo {{.MIHOMO_VERSION}}' \
           -X 'main.branch=mihomo' \
-          -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}'" \
+          -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-{{.GOARM}}{{end}}'" \
           {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
 
 
@@ -264,5 +264,8 @@ tasks:
       - task: linux-amd64-mihomo
       - task: linux-amd64-v3-mihomo
       - task: linux-arm64-mihomo
+      - task: linux-armv5-mihomo
+      - task: linux-armv6-mihomo
+      - task: linux-armv7-mihomo
       - rm -rf static build/clash-*
       - cp flatcar.butane.yaml example.yaml build
