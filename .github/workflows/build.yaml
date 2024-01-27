@@ -8,7 +8,7 @@ on:
         required: true
         type: choice
         options:
-          - buildd
+          - build
 
 env:
   FORCE_COLOR: 1
