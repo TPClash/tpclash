@@ -456,4 +456,5 @@ tasks:
       - task: linux-armv6-mihomo
       - task: linux-armv7-mihomo
       - rm -rf static build/clash-*
+      - rm -rf static build/mihomo-*
       - cp flatcar.butane.yaml example.yaml build
