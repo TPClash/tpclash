@@ -81,6 +81,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.G1THUB_TOKEN }}
       with:
+          prerelease: ${{ secrets.PRERELEASE }}
           tag_name: ${{ steps.extract_tag.outputs.tag_name }}
           body_path: release.txt
           files: build/*
