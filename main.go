@@ -20,9 +20,9 @@ var (
 	commit  string
 	version string
 	clash   string
-	branch  string
 	binName string
 )
+
 
 var conf TPClashConf
 
@@ -162,14 +162,18 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&conf.AllowStandardDNSPort, "allow-standard-dns", false, "allow standard DNS port")
 	rootCmd.PersistentFlags().BoolVarP(&conf.PrintVersion, "version", "v", false, "version for tpclash")
 
-	if branch == "premium" {
+	rootCmd.PersistentFlags().StringVarP(&conf.Branch, "branch", "b", "meta", "clash cores(premium|meta)")
+
+	if conf.Branch == "premium" {
 		rootCmd.PersistentFlags().BoolVar(&conf.EnableTracing, "enable-tracing", false, "auto deploy tracing dashboard")
 		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/premium", "clash premium home dir")
 	}
 
-	if branch == "mihomo" {
+	if conf.Branch == "mihomo" {
 		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/mihomo", "mihomo home dir")
 	}
+
+	
 }
 
 func main() {
