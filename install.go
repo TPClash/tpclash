@@ -88,6 +88,9 @@ var installCmd = &cobra.Command{
 		if conf.AutoFixMode != "" {
 			opts += fmt.Sprintf(" %s %s", "--auto-fix", conf.AutoFixMode)
 		}
+		if conf.Branch != "" {
+			opts += fmt.Sprintf(" %s %s", "--branch", conf.Branch)
+		}
 
 		err = os.WriteFile(filepath.Join(systemdDir, "tpclash.service"), []byte(fmt.Sprintf(systemdTpl, opts)), 0644)
 		if err != nil {
