@@ -20,9 +20,9 @@ var (
 	commit  string
 	version string
 	clash   string
+	branch  string
 	binName string
 )
-
 
 var conf TPClashConf
 
@@ -151,6 +151,7 @@ func init() {
 
 	rootCmd.PersistentFlags().BoolVar(&conf.Debug, "debug", false, "enable debug log")
 	rootCmd.PersistentFlags().BoolVar(&conf.Test, "test", false, "enable test mode, tpclash will automatically exit after 5 minutes")
+	rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/clash", "clash home dir")
 	rootCmd.PersistentFlags().StringVarP(&conf.ClashConfig, "config", "c", "/etc/clash.yaml", "clash config local path or remote url")
 	rootCmd.PersistentFlags().StringVarP(&conf.ClashUI, "ui", "u", "yacd", "clash dashboard(official|yacd)")
 	rootCmd.PersistentFlags().DurationVarP(&conf.CheckInterval, "check-interval", "i", 120*time.Second, "remote config check interval")
@@ -162,18 +163,10 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&conf.AllowStandardDNSPort, "allow-standard-dns", false, "allow standard DNS port")
 	rootCmd.PersistentFlags().BoolVarP(&conf.PrintVersion, "version", "v", false, "version for tpclash")
 
-	rootCmd.PersistentFlags().StringVarP(&conf.Branch, "branch", "b", "meta", "clash cores(premium|meta)")
-
-	if conf.Branch == "premium" {
-		rootCmd.PersistentFlags().BoolVar(&conf.EnableTracing, "enable-tracing", false, "auto deploy tracing dashboard")
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/premium", "clash premium home dir")
-	}
-
-	if conf.Branch == "mihomo" {
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/mihomo", "mihomo home dir")
-	}
-
-	
+	// Disable this function
+	//if branch == "premium" {
+	//	rootCmd.PersistentFlags().BoolVar(&conf.EnableTracing, "enable-tracing", false, "auto deploy tracing dashboard")
+	//}
 }
 
 func main() {

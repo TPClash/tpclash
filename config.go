@@ -33,7 +33,6 @@ type TPClashConf struct {
 	CheckInterval     time.Duration
 	ConfigEncPassword string
 	AutoFixMode       string
-	Branch  string
 
 	ForceExtract         bool
 	EnableTracing        bool

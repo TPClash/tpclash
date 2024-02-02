@@ -9,7 +9,7 @@ TPClash(Transparent proxy tool for Clash)，是一个用于 Clash 的透明代�
 
 ## 一、TPClash 是什么
 
-TPClash 可以自动安装 Clash Premium（已停更）/ Mihomo, 并自动配置基于 Tun 的透明代理.
+TPClash 可以自动安装 ~~Clash Premium~~（已停更）/ Mihomo, 并自动配置基于 Tun 的透明代理.
 
 **TPClash 的透明代理规则、日志配置、Dashboard(UI) 配置等全部从标准的 Clash 配置文件内读取, 并完成自适应; TPClash 暂时不会创建自己的自定义
 配置文件(减轻使用负担).**
