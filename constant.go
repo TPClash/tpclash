@@ -146,8 +146,8 @@ const uninstalledMessage = logo + `  👌 TPClash 已卸载, 如有任何问题�
 `
 
 const (
-	githubLatestApi   = "https://api.github.com/repos/QingNetwork/tpclash/releases/latest"
-	githubUpgradeAddr = "https://github.com/QingNetwork/tpclash/releases/download/v%s/%s"
+	githubLatestApi   = "https://api.github.com/repos/TPClash/tpclash/releases/latest"
+	githubUpgradeAddr = "https://github.com/TPClash/tpclash/releases/download/v%s/%s"
 	ghProxyAddr       = "https://mirror.ghproxy.com/"
 )
 
