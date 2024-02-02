@@ -7,10 +7,6 @@ vars:
     sh: git rev-parse HEAD
   BUILD_DATE:
     sh: date '+%F %T'
-  PREMIUM_VERSION:
-    sh: |
-      curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-        https://api.github.com/repos/TPClash/clash-backup/releases/tags/premium | jq -r '.name'
   MIHOMO_VERSION:
     sh: |
       curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
@@ -81,21 +77,6 @@ tasks:
     status:
       - test -d static/tracing
 
-  build-premium-dashboard:
-    desc: Build Clash Premium Dashboard
-    cmds:
-      - git clone https://github.com/haishanh/yacd.git build/yacd
-      - defer: rm -rf build/yacd
-      - git clone https://github.com/TPClash/clash-dashboard-backup.git build/official
-      - defer: rm -rf build/official
-      - (cd build/yacd && pnpm install && pnpm build)
-      - (cd build/official && pnpm install && pnpm build)
-      - cp -r build/yacd/public static/yacd
-      - cp -r build/official/dist static/official
-    status:
-      - test -d static/yacd
-      - test -d static/official
-
   build-mihomo-dashboard:
     desc: Build Mihomo Dashboard
     cmds:
@@ -110,21 +91,6 @@ tasks:
     status:
       - test -d static/yacd
       - test -d static/official
-
-  download-clash-premium:
-    desc: Download Clash Premium
-    vars:
-      CLASH_PREMIUM_URL:
-        sh: |
-          curl -sSL {{if .GITHUB_TOKEN}}-H 'Authorization: Bearer {{.GITHUB_TOKEN}}'{{end}} \
-            https://api.github.com/repos/TPClash/clash-backup/releases/tags/premium | \
-            jq -r '.assets[].browser_download_url | select (. | test("clash-{{.PLATFORM}}-v\\d+.*gz"))'
-    cmds:
-      - curl -sSL {{.CLASH_PREMIUM_URL}} > build/clash-{{.PLATFORM}}.gz
-      - gzip -d build/clash-{{.PLATFORM}}.gz
-      - chmod +x build/clash-{{.PLATFORM}}
-    status:
-      - test -f build/clash-{{.PLATFORM}}
 
   download-mihomo:
     desc: Download Mihomo
@@ -141,153 +107,149 @@ tasks:
     status:
       - test -f build/mihomo-{{.PLATFORM}}
 
-  copy-cores:
-    desc: Copy Cores To Embed FS
+  copy-mihomo:
+    desc: Copy Mihomo To Embed FS
     cmds:
-      - task: download-clash-premium
-        vars: { PLATFORM: "{{.PLATFORM}}" }
       - task: download-mihomo
         vars: { PLATFORM: "{{.PLATFORM}}" }
-      - cp -f build/clash-{{.PLATFORM}} static/premium
-      - cp -f build/mihomo-{{.PLATFORM}} static/mihomo
+      - cp -f build/mihomo-{{.PLATFORM}} static/xclash
 
-  build-tpclash:
-    desc: Build TPClash
-    label: build-{{.PLATFORM}}
+  build-tpclash-mihomo:
+    desc: Build TPClash With Mihomo
+    label: build-mihomo-{{.PLATFORM}}
     cmds:
       - task: mkdir
       - task: download-ruleset
       - task: download-mmdb
-      - task: copy-tracing
-      - task: build-premium-dashboard
       - task: build-mihomo-dashboard
-      - task: download-clash-premium
-        vars: { PLATFORM: "{{.PLATFORM}}" }
       - task: download-mihomo
         vars: { PLATFORM: "{{.PLATFORM}}" }
-      - task: copy-cores
+      - task: copy-mihomo
         vars: { PLATFORM: "{{.PLATFORM}}" }
       - |
         GOOS={{.GOOS}} GOARCH={{.GOARCH}} GOARM={{.GOARM}} GOAMD64={{.GOAMD64}} GOMIPS={{.GOMIPS}} \
-        go build -trimpath -o build/tpclash-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}} \
+        go build -trimpath -o build/tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-v{{.GOARM}}{{end}} \
           -ldflags "{{if not .DEBUG}}-w -s{{end}} \
           -X 'main.build={{.BUILD_DATE}}' \
           -X 'main.commit={{.COMMIT_SHA}}' \
           -X 'main.version={{.VERSION}}' \
-          -X 'main.clash={{.PREMIUM_VERSION}}' \
-          -X 'main.binName=tpclash-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}'" \
+          -X 'main.clash=Mihomo {{.MIHOMO_VERSION}}' \
+          -X 'main.branch=mihomo' \
+          -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-{{.GOARM}}{{end}}'" \
           {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
 
-  linux-386:
-    desc: Build TPClash(linux/386)
+
+
+  linux-386-mihomo:
+    desc: Build TPClash With Mihomo(linux/386)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-386,
           GOOS: linux,
-          GOARCH: 386
+          GOARCH: 386,
         }
-  linux-amd64:
-    desc: Build TPClash(linux/amd64)
+  linux-amd64-mihomo:
+    desc: Build TPClash With Mihomo(linux/amd64)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-amd64-compatible,
           GOOS: linux,
-          GOARCH: amd64
+          GOARCH: amd64,
         }
-  linux-amd64-v3:
-    desc: Build TPClash(linux/amd64-v3)
+  linux-amd64-v3-mihomo:
+    desc: Build TPClash With Mihomo(linux/amd64-v3)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-amd64,
           GOOS: linux,
           GOARCH: amd64,
           GOAMD64: v3
         }
-  linux-arm64:
-    desc: Build TPClash(linux/arm64)
+  linux-arm64-mihomo:
+    desc: Build TPClash With Mihomo(linux/arm64)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-arm64,
           GOOS: linux,
           GOARCH: arm64
         }
-  linux-armv5:
-    desc: Build TPClash(linux/armv5)
+  linux-armv5-mihomo:
+    desc: Build TPClash With Mihomo(linux/armv5)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-armv5,
           GOOS: linux,
           GOARCH: arm,
           GOARM: 5
         }
-  linux-armv6:
-    desc: Build TPClash(linux/armv6)
+  linux-armv6-mihomo:
+    desc: Build TPClash With Mihomo(linux/armv6)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-armv6,
           GOOS: linux,
           GOARCH: arm,
           GOARM: 6
         }
-  linux-armv7:
-    desc: Build TPClash(linux/armv7)
+  linux-armv7-mihomo:
+    desc: Build TPClash With Mihomo(linux/armv7)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-armv7,
           GOOS: linux,
           GOARCH: arm,
           GOARM: 7
         }
-  linux-mips-hardfloat:
-    desc: Build TPClash(linux/mips-hardfloat)
+  linux-mips-hardfloat-mihomo:
+    desc: Build TPClash With Mihomo(linux/mips-hardfloat)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-mips-hardfloat,
           GOOS: linux,
           GOARCH: mips,
           GOMIPS: hardfloat
         }
-  linux-mipsle-softfloat:
-    desc: Build TPClash(linux/mipsle-softfloat)
+  linux-mipsle-softfloat-mihomo:
+    desc: Build TPClash With Mihomo(linux/mipsle-softfloat)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-mipsle-softfloat,
           GOOS: linux,
           GOARCH: mipsle,
           GOMIPS: softfloat
         }
-  linux-mipsle-hardfloat:
-    desc: Build TPClash(linux/mipsle-hardfloat)
+  linux-mipsle-hardfloat-mihomo:
+    desc: Build TPClash With Mihomo(linux/mipsle-hardfloat)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-mipsle-hardfloat,
           GOOS: linux,
           GOARCH: mipsle,
           GOMIPS: hardfloat
         }
-  linux-mips64:
-    desc: Build TPClash(linux/mips64)
+  linux-mips64-mihomo:
+    desc: Build TPClash With Mihomo(linux/mips64)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-mips64,
           GOOS: linux,
           GOARCH: mips64
         }
-  linux-mips64le:
-    desc: Build TPClash(linux/mips64le)
+  linux-mips64le-mihomo:
+    desc: Build TPClash With Mihomo(linux/mips64le)
     cmds:
-      - task: build-tpclash
+      - task: build-tpclash-mihomo
         vars: {
           PLATFORM: linux-mips64le,
           GOOS: linux,
@@ -298,14 +260,12 @@ tasks:
     cmds:
       - task: clean
       - rm -rf static/yacd static/official
-      - task: linux-386
-      - task: linux-amd64
-      - task: linux-amd64-v3
-      - task: linux-arm64
-      - task: linux-arm64
-      - task: linux-armv5
-      - task: linux-armv6
-      - task: linux-armv7
-      - rm -rf static build/clash-*
+      - task: linux-386-mihomo
+      - task: linux-amd64-mihomo
+      - task: linux-amd64-v3-mihomo
+      - task: linux-arm64-mihomo
+      - task: linux-armv5-mihomo
+      - task: linux-armv6-mihomo
+      - task: linux-armv7-mihomo
       - rm -rf static build/mihomo-*
       - cp flatcar.butane.yaml example.yaml build

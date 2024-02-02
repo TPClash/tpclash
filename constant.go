@@ -21,8 +21,8 @@ const (
 )
 
 const (
-  InternalClashBinName = "xclash"
-  InternalConfigName   = "xclash.yaml"
+	InternalClashBinName = "xclash"
+	InternalConfigName   = "xclash.yaml"
 )
 
 const (
