@@ -135,7 +135,7 @@ tasks:
           -X 'main.version={{.VERSION}}' \
           -X 'main.clash=Mihomo {{.MIHOMO_VERSION}}' \
           -X 'main.branch=mihomo' \
-          -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-{{.GOARM}}{{end}}'" \
+          -X 'main.binName=tpclash-mihomo-{{.GOOS}}-{{.GOARCH}}{{if .GOAMD64}}-{{.GOAMD64}}{{end}}{{if .GOARM}}-v{{.GOARM}}{{end}}'" \
           {{if .DEBUG}}-gcflags "all=-N -l"{{end}}
 
 
