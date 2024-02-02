@@ -255,6 +255,15 @@ tasks:
           GOOS: linux,
           GOARCH: mips64le
         }
+  android-arm64-mihomo:
+    desc: Build TPClash With Mihomo(android/arm64)
+    cmds:
+      - task: build-tpclash-mihomo
+        vars: {
+          PLATFORM: android-arm64,
+          GOOS: android,
+          GOARCH: arm64
+        }
 
   default:
     cmds:
@@ -267,5 +276,6 @@ tasks:
       - task: linux-armv5-mihomo
       - task: linux-armv6-mihomo
       - task: linux-armv7-mihomo
+      - task: android-arm64-mihomo
       - rm -rf static build/mihomo-*
       - cp flatcar.butane.yaml example.yaml build
