@@ -126,6 +126,9 @@ const installedMessage = logo + `  👌 TPClash 安装完成, 您可以使用以
      ● 关闭自启动: systemctl disable tpclash
      ● 查看日志: journalctl -fu tpclash
      ● 重载服务配置: systemctl daemon-reload
+
+     注：如果您使用的是非 systemd 的 Linux 发行版，请按照以下 systemd 的 service 配置作为参考自行编写。
+     https://github.com/TPClash/tpclash/blob/master/constant.go#L85
 `
 
 const reinstallMessage = `
@@ -159,4 +162,7 @@ const upgradedMessage = logo + `  👌 TPClash 已升级完成, 请重新启动�
      ● 关闭自启动: systemctl disable tpclash
      ● 查看日志: journalctl -fu tpclash
      ● 重载服务配置: systemctl daemon-reload
+
+     注：如果您使用的是非 systemd 的 Linux 发行版，请按照以下 systemd 的 service 配置作为参考自行编写。
+     https://github.com/TPClash/tpclash/blob/master/constant.go#L85
 `
