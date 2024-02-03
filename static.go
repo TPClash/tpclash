@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-//go:embed static
+// go:embed static
 var static embed.FS
 
 func extract(efs embed.FS, dirEntries []fs.DirEntry, origin, target string) error {
