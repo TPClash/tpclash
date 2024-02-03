@@ -90,8 +90,14 @@ var rootCmd = &cobra.Command{
 			cancel()
 		}
 
-		if err = EnableDockerCompatible(); err != nil {
-			logrus.Errorf("[main] failed enable docker compatible: %v", err)
+		if binName == "tpclash-mihomo-android-arm64" {
+			if err = EnableDockerCompatible(); err != nil {
+				logrus.Info("[main] docker compatible mode is disable in Android devices")
+			}
+		} else {
+			if err = EnableDockerCompatible(); err != nil {
+				logrus.Errorf("[main] failed enable docker compatible: %v", err)
+			}
 		}
 
 		// Watch clash config changes, and automatically reload the config
@@ -119,8 +125,14 @@ var rootCmd = &cobra.Command{
 
 		<-ctx.Done()
 		logrus.Info("[main] 🛑 TPClash 正在停止...")
-		if err = DisableDockerCompatible(); err != nil {
-			logrus.Errorf("[main] failed disable docker compatible: %v", err)
+		if binName == "tpclash-mihomo-arm64" {
+			if err = DisableDockerCompatible(); err != nil {
+				logrus.Info("[main] docker compatible mode is disable in Android devices")
+			}
+		} else {
+			if err = DisableDockerCompatible(); err != nil {
+				logrus.Errorf("[main] failed disable docker compatible: %v", err)
+			}
 		}
 
 		if conf.EnableTracing {
