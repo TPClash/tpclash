@@ -71,4 +71,4 @@ Telegram 频道: [https://t.me/tpclash](https://t.me/tpclash)
 Telegram 交流群：https://t.me/+IXKJy7_SiM5mN2Q1
 
 ## Stargazers over time
-[![Stargazers over time](https://starchart.cc/QingNetwork/tpclash.svg?variant=adaptive)](https://starchart.cc/QingNetwork/tpclash)
+[![Stargazers over time](https://starchart.cc/TPClash/tpclash.svg?variant=adaptive)](https://starchart.cc/TPClash/tpclash)
