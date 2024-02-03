@@ -7,6 +7,12 @@ const logo = `
    ██║   ██╔═══╝ ██║     ██║     ██╔══██║╚════██║██╔══██║
    ██║   ██║     ╚██████╗███████╗██║  ██║███████║██║  ██║
    ╚═╝   ╚═╝      ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+   ● 原作者：mritd 
+   (GitHub: https://github.com/mritd, V2EX: https://www.v2ex.com/member/mritd)
+
+   ● 现继任主要维护者：Ju33Huang22 
+   (GitHub: https://github.com/j33h22, V2EX: https://www.v2ex.com/member/Ju33Huang22)
 `
 
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/capability.h
@@ -133,12 +139,6 @@ const installedMessage = logo + `  👌 TPClash 安装完成, 您可以使用以
 
      如有任何问题请开启 issue 或从 Telegram 讨论组反馈
 
-     ● 原作者：mritd 
-     (GitHub: https://github.com/mritd, V2EX: https://www.v2ex.com/member/mritd)
-
-     ● 现继任主要维护者：Ju33Huang22 
-     (GitHub: https://github.com/j33h22, V2EX: https://www.v2ex.com/member/Ju33Huang22)
-
      ● 复活版TPClash仓库: https://github.com/TPClash/tpclash
      ● 复活版TPClash Telegram 频道: https://t.me/tpclash
      ● 复活版TPClash Telegram 讨论组: https://t.me/+IXKJy7_SiM5mN2Q1
@@ -156,12 +156,6 @@ const uninstallMessage = `
 `
 
 const uninstalledMessage = logo + `  👌 TPClash 已卸载, 如有任何问题请开启 issue 或从 Telegram 讨论组反馈
-     ● 原作者：mritd 
-     (GitHub: https://github.com/mritd, V2EX: https://www.v2ex.com/member/mritd)
-
-     ● 现继任主要维护者：Ju33Huang22 
-     (GitHub: https://github.com/j33h22, V2EX: https://www.v2ex.com/member/Ju33Huang22)
-
      ● 复活版TPClash仓库: https://github.com/TPClash/tpclash
      ● 复活版TPClash Telegram 频道: https://t.me/tpclash
      ● 复活版TPClash Telegram 讨论组: https://t.me/+IXKJy7_SiM5mN2Q1
