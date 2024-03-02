@@ -134,7 +134,7 @@ const installedMessage = logo + `  👌 TPClash 安装完成, 您可以使用以
      ● 重载服务配置: systemctl daemon-reload
 
      注：如果您使用的是非 systemd 的 Linux 发行版，请按照以下 systemd 的 service 配置作为参考自行编写。
-     https://github.com/TPClash/tpclash/blob/master/constant.go#L85
+     https://github.com/TPClash/tpclash/blob/master/constant.go#L91
 
 
      如有任何问题请开启 issue 或从 Telegram 讨论组反馈
@@ -177,5 +177,5 @@ const upgradedMessage = logo + `  👌 TPClash 已升级完成, 请重新启动�
      ● 重载服务配置: systemctl daemon-reload
 
      注：如果您使用的是非 systemd 的 Linux 发行版，请按照以下 systemd 的 service 配置作为参考自行编写。
-     https://github.com/TPClash/tpclash/blob/master/constant.go#L85
+     https://github.com/TPClash/tpclash/blob/master/constant.go#L91
 `
