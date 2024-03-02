@@ -100,18 +100,20 @@ dns:
 #  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
 #  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
 
+# 请在这里添加您的节点
 proxies:
   - 
 proxy-groups:
   - name: 🚀 节点选择
     type: select
     proxies:
-      - 🚀 节点选择
       - 🚀 手动切换
+      - ♻️ 自动选择
       - DIRECT
   - name: 🚀 手动切换
     type: select
     proxies:
+    # 请在这里添加您的节点
       - 
   - name: ♻️ 自动选择
     type: url-test
@@ -119,6 +121,7 @@ proxy-groups:
     interval: 300
     tolerance: 50
     proxies:
+    # 请在这里添加您的节点
       - 
   - name: 📲 电报消息
     type: select
