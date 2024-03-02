@@ -139,9 +139,9 @@ const installedMessage = logo + `  👌 TPClash 安装完成, 您可以使用以
 
      如有任何问题请开启 issue 或从 Telegram 讨论组反馈
 
-     ● 复活版TPClash仓库: https://github.com/TPClash/tpclash
-     ● 复活版TPClash Telegram 频道: https://t.me/tpclash
-     ● 复活版TPClash Telegram 讨论组: https://t.me/+IXKJy7_SiM5mN2Q1
+     ● TPClash仓库: https://github.com/TPClash/tpclash
+     ● TPClash Telegram 频道: https://t.me/tpclash
+     ● TPClash Telegram 讨论组: https://t.me/+98SPc9rmV8w3Mzll
 `
 
 const reinstallMessage = `
@@ -156,9 +156,9 @@ const uninstallMessage = `
 `
 
 const uninstalledMessage = logo + `  👌 TPClash 已卸载, 如有任何问题请开启 issue 或从 Telegram 讨论组反馈
-     ● 复活版TPClash仓库: https://github.com/TPClash/tpclash
-     ● 复活版TPClash Telegram 频道: https://t.me/tpclash
-     ● 复活版TPClash Telegram 讨论组: https://t.me/+IXKJy7_SiM5mN2Q1
+     ● TPClash仓库: https://github.com/TPClash/tpclash
+     ● TPClash Telegram 频道: https://t.me/tpclash
+     ● TPClash Telegram 讨论组: https://t.me/+98SPc9rmV8w3Mzll
 `
 
 const (
