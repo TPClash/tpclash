@@ -68,7 +68,7 @@ TPClash 默认释放的文件包含了 [Loyalsoldier/clash-rules](https://github
 
 Telegram 频道: [https://t.me/tpclash](https://t.me/tpclash)
 
-Telegram 交流群：https://t.me/+IXKJy7_SiM5mN2Q1
+Telegram 交流群：[https://t.me/+IXKJy7_SiM5mN2Q1](https://t.me/+98SPc9rmV8w3Mzll)
 
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/TPClash/tpclash.svg?variant=adaptive)](https://starchart.cc/TPClash/tpclash)
