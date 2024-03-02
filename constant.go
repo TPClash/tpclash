@@ -11,8 +11,8 @@ const logo = `
    ● 原作者：mritd 
    (GitHub: https://github.com/mritd, V2EX: https://www.v2ex.com/member/mritd)
 
-   ● 现继任主要维护者：Ju33Huang22 
-   (GitHub: https://github.com/j33h22, V2EX: https://www.v2ex.com/member/Ju33Huang22)
+   ● 现继任主要维护组织：TPClash Devs
+   (GitHub: https://github.com/TPClash)
 `
 
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/capability.h
