@@ -6,7 +6,7 @@ toolchain go1.21.1
 
 require (
 	github.com/TPClash/logrus v0.1.1
-	github.com/docker/docker v25.0.2+incompatible
+	github.com/docker/docker v25.0.3+incompatible
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/google/nftables v0.1.0
 	github.com/hashicorp/go-version v1.6.0
