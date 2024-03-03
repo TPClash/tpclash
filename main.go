@@ -90,14 +90,8 @@ var rootCmd = &cobra.Command{
 			cancel()
 		}
 
-		if binName == "tpclash-mihomo-android-arm64" {
-			if err = EnableDockerCompatible(); err != nil {
-				logrus.Info("[main] docker compatible mode is disable in Android devices")
-			}
-		} else {
-			if err = EnableDockerCompatible(); err != nil {
-				logrus.Errorf("[main] failed enable docker compatible: %v", err)
-			}
+		if err = EnableDockerCompatible(); err != nil {
+			logrus.Errorf("[main] failed enable docker compatible: %v", err)
 		}
 
 		// Watch clash config changes, and automatically reload the config
@@ -125,14 +119,8 @@ var rootCmd = &cobra.Command{
 
 		<-ctx.Done()
 		logrus.Info("[main] 🛑 TPClash 正在停止...")
-		if binName == "tpclash-mihomo-arm64" {
-			if err = DisableDockerCompatible(); err != nil {
-				logrus.Info("[main] docker compatible mode is disable in Android devices")
-			}
-		} else {
-			if err = DisableDockerCompatible(); err != nil {
-				logrus.Errorf("[main] failed disable docker compatible: %v", err)
-			}
+		if err = DisableDockerCompatible(); err != nil {
+			logrus.Errorf("[main] failed disable docker compatible: %v", err)
 		}
 
 		if conf.EnableTracing {
@@ -163,6 +151,8 @@ func init() {
 
 	rootCmd.PersistentFlags().BoolVar(&conf.Debug, "debug", false, "enable debug log")
 	rootCmd.PersistentFlags().BoolVar(&conf.Test, "test", false, "enable test mode, tpclash will automatically exit after 5 minutes")
+	rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/clash", "clash home dir")
+	rootCmd.PersistentFlags().StringVarP(&conf.ClashConfig, "config", "c", "/etc/clash.yaml", "clash config local path or remote url")
 	rootCmd.PersistentFlags().StringVarP(&conf.ClashUI, "ui", "u", "yacd", "clash dashboard(official|yacd)")
 	rootCmd.PersistentFlags().DurationVarP(&conf.CheckInterval, "check-interval", "i", 120*time.Second, "remote config check interval")
 	rootCmd.PersistentFlags().StringSliceVar(&conf.HttpHeader, "http-header", []string{}, "http header when requesting a remote config(key=value)")
@@ -177,14 +167,6 @@ func init() {
 	//if branch == "premium" {
 	//	rootCmd.PersistentFlags().BoolVar(&conf.EnableTracing, "enable-tracing", false, "auto deploy tracing dashboard")
 	//}
-
-	if binName == "tpclash-mihomo-android-arm64" {
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/adb/tpclash/clash", "clash home dir (Android)")
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashConfig, "config", "c", "/data/adb/tpclash/clash-config/clash.yaml", "clash config local path or remote url")
-	} else {
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashHome, "home", "d", "/data/clash", "clash home dir")
-		rootCmd.PersistentFlags().StringVarP(&conf.ClashConfig, "config", "c", "/etc/clash.yaml", "clash config local path or remote url")
-	}
 
 }
 
