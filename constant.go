@@ -13,6 +13,7 @@ const logo = `
 
    ● 现继任主要维护组织：TPClash Devs
    (GitHub: https://github.com/TPClash)
+   
 `
 
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/capability.h
