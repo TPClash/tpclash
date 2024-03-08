@@ -28,40 +28,9 @@ tasks:
   mkdir:
     desc: Create Build Dir
     cmds:
-      - mkdir -p build static/ruleset
+      - mkdir -p build static
     status:
       - test -d build
-      - test -d static/ruleset
-  download-ruleset:
-    desc: Download Loyalsoldier RuleSet
-    cmds:
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt > static/ruleset/reject.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt > static/ruleset/icloud.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt > static/ruleset/apple.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt > static/ruleset/google.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt > static/ruleset/proxy.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt > static/ruleset/direct.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt > static/ruleset/private.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt > static/ruleset/gfw.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt > static/ruleset/tld-not-cn.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt > static/ruleset/telegramcidr.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt > static/ruleset/cncidr.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt > static/ruleset/lancidr.yaml
-      - curl -sSL https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt > static/ruleset/applications.yaml
-    status:
-      - test -f static/ruleset/reject.yaml
-      - test -f static/ruleset/icloud.yaml
-      - test -f static/ruleset/apple.yaml
-      - test -f static/ruleset/google.yaml
-      - test -f static/ruleset/proxy.yaml
-      - test -f static/ruleset/direct.yaml
-      - test -f static/ruleset/private.yaml
-      - test -f static/ruleset/gfw.yaml
-      - test -f static/ruleset/tld-not-cn.yaml
-      - test -f static/ruleset/telegramcidr.yaml
-      - test -f static/ruleset/cncidr.yaml
-      - test -f static/ruleset/lancidr.yaml
-      - test -f static/ruleset/applications.yaml
 
   download-mmdb:
     desc: Download GeoIP2-CN MMDB
@@ -119,7 +88,6 @@ tasks:
     label: build-mihomo-{{.PLATFORM}}
     cmds:
       - task: mkdir
-      - task: download-ruleset
       - task: download-mmdb
       - task: build-mihomo-dashboard
       - task: download-mihomo
