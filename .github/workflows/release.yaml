@@ -85,3 +85,14 @@ jobs:
           tag_name: ${{ steps.extract_tag.outputs.tag_name }}
           body_path: release.txt
           files: build/*
+    - name: 'Send telegram message'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+            ${{ steps.extract_tag.outputs.tag_name }}
+
+            ${{ secrets.RELEASE_INFO }}
+
+            https://github.com/TPClash/tpclash/releases/tag/${{ steps.extract_tag.outputs.tag_name }}
