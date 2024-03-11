@@ -8,12 +8,12 @@ require (
 	github.com/TPClash/logrus v0.1.1
 	github.com/docker/docker v25.0.3+incompatible
 	github.com/fsnotify/fsnotify v1.7.0
-	github.com/google/nftables v0.1.0
+	github.com/google/nftables v0.2.0
 	github.com/hashicorp/go-version v1.6.0
 	github.com/lorenzosaino/go-sysctl v0.3.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.0
-	golang.org/x/crypto v0.20.0
+	golang.org/x/crypto v0.21.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -48,9 +48,9 @@ require (
 	golang.org/x/exp/typeparams v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.17.0 // indirect
+	golang.org/x/net v0.22.0 // indirect
+	golang.org/x/sync v0.6.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.13.0 // indirect
 	gotest.tools/v3 v3.5.1 // indirect
