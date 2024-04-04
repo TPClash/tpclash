@@ -10,21 +10,21 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/docker/docker/errdefs"
+	"github.com/moby/moby/errdefs"
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/docker/api/types/strslice"
+	"github.com/moby/moby/api/types/strslice"
 
-	"github.com/docker/docker/api/types/network"
+	"github.com/moby/moby/api/types/network"
 
-	"github.com/docker/docker/api/types/mount"
+	"github.com/moby/moby/api/types/mount"
 
-	"github.com/docker/docker/api/types/container"
+	"github.com/moby/moby/api/types/container"
 
-	"github.com/docker/docker/api/types"
+	"github.com/moby/moby/api/types"
 
-	"github.com/docker/docker/client"
+	"github.com/moby/moby/client"
 )
 
 type TracingConfig struct {
@@ -208,7 +208,7 @@ func startTracing(ctx context.Context, conf TPClashConf, cc *ClashConf) error {
 
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		return fmt.Errorf("[tracing] failed to create docker client: %w", err)
+		return fmt.Errorf("[tracing] failed to create Moby client: %w", err)
 	}
 	defer func() { _ = cli.Close() }()
 
@@ -248,7 +248,7 @@ func startTracing(ctx context.Context, conf TPClashConf, cc *ClashConf) error {
 	}
 
 	for _, c := range []*TracingConfig{lokiConf, vectorConf, trafficScraperConf, tracingScraperConf, grafanaConf} {
-		logrus.Debugf("[tracing] pulling docker image %s: %s", c.ContainerConfig.Hostname, c.ContainerConfig.Image)
+		logrus.Debugf("[tracing] pulling Moby image %s: %s", c.ContainerConfig.Hostname, c.ContainerConfig.Image)
 		pullResp, err := cli.ImagePull(ctx, c.ContainerConfig.Image, types.ImagePullOptions{})
 		if err != nil {
 			return fmt.Errorf("[tracing] failed to pull container image: %s: %w", c.ContainerConfig.Hostname, err)
@@ -259,13 +259,13 @@ func startTracing(ctx context.Context, conf TPClashConf, cc *ClashConf) error {
 			_, _ = io.Copy(io.Discard, pullResp)
 		}
 
-		logrus.Debugf("[tracing] creating docker container: %s", c.ContainerConfig.Hostname)
+		logrus.Debugf("[tracing] creating Moby container: %s", c.ContainerConfig.Hostname)
 		createResp, err := cli.ContainerCreate(ctx, c.ContainerConfig, c.HostConfig, c.NetworkConfig, nil, c.ContainerConfig.Hostname)
 		if err != nil {
 			return fmt.Errorf("[tracing] failed to create container: %s: %w", c.ContainerConfig.Hostname, err)
 		}
 
-		logrus.Debugf("[tracing] staring docker container: %s", c.ContainerConfig.Hostname)
+		logrus.Debugf("[tracing] staring Moby container: %s", c.ContainerConfig.Hostname)
 		err = cli.ContainerStart(ctx, createResp.ID, types.ContainerStartOptions{})
 		if err != nil {
 			return fmt.Errorf("[tracing] failed to start container: %s: %w", c.ContainerConfig.Hostname, err)
@@ -278,12 +278,12 @@ func startTracing(ctx context.Context, conf TPClashConf, cc *ClashConf) error {
 func stopTracing(ctx context.Context) error {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		return fmt.Errorf("[tracing] failed to create docker client: %w", err)
+		return fmt.Errorf("[tracing] failed to create Moby client: %w", err)
 	}
 	defer func() { _ = cli.Close() }()
 
 	for _, name := range []string{grafanaContainerName, lokiContainerName, vectorContainerName, tracingScraperContainerName, trafficScraperContainerName} {
-		logrus.Debugf("[tracing] remove docker containers: %s", name)
+		logrus.Debugf("[tracing] remove Moby containers: %s", name)
 		err = cli.ContainerRemove(ctx, name, types.ContainerRemoveOptions{Force: true})
 		if err != nil {
 			if _, ok := err.(errdefs.ErrNotFound); ok {
